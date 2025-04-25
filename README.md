@@ -24,4 +24,8 @@ Single Key Press Sounds by eklee - https://www.hooksounds.com/sound-effects/sing
 
 Win Sound #2 by remaxim https://opengameart.org/content/win-sound-2
 
+Music composed by Ali Murtaza
+
 Made with Unity
+
+Gameplay Video with Narration: https://drive.google.com/file/d/1q5cfnWePEzfpYRmreorgGy1gfMgjQ_Xf/view?usp=sharing
