@@ -21,8 +21,6 @@ public class HubManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        /*SaveData.LoadCustom(100, 16, 5f, false);
-        SaveData.Save();*/
         SaveData.Load();
     }
 

@@ -6,7 +6,6 @@ using UnityEngine;
 public class HubPlayerCamera : MonoBehaviour
 {
     private readonly float DefaultSensitivity = 0.05f;
-    private readonly bool Inverted = false;
 
     private readonly float StandUpHeight = 1.75f;
     private readonly float MaxUpLookAngle = 75f, MaxDownLookAngle = 75f;
@@ -22,13 +21,14 @@ public class HubPlayerCamera : MonoBehaviour
     private Vector2 currentLook;
     private Vector3 currentRootPosition;
     private Vector3 currentRootOffset;
-    private Vector3 currentRootRotationOffset;
 
     private float currentJumpOffset, currentLandOffset, currentLandOffsetSpeed;
     private float headBobRunSpeed, currentCycleDistance;
     private Vector3 currentRunOffset;
 
     private float currentSensitivity;
+
+    private bool halfCompleted;
 
     private void OnEnable()
     {
@@ -58,7 +58,7 @@ public class HubPlayerCamera : MonoBehaviour
         CalculateRootOffset();
         
         root.transform.localPosition = currentRootPosition + currentRootOffset;
-        root.transform.localRotation = Quaternion.Euler(new Vector3(-currentLook.y, currentLook.x, 0) + currentRootRotationOffset);
+        root.transform.localRotation = Quaternion.Euler(new Vector3(-currentLook.y, currentLook.x, 0));
 
         void CalculateRootOffset()
         {
@@ -71,8 +71,18 @@ public class HubPlayerCamera : MonoBehaviour
             {
                 currentCycleDistance += headBobRunSpeed * Time.deltaTime / RunBobCycleDistance * TWOPI;
 
+                if (!halfCompleted && currentCycleDistance > TWOPI / 2)
+                {
+                    halfCompleted = true;
+                    HubEvents.PlayerStepEvent();
+                }
+
                 if (currentCycleDistance > TWOPI)
+                {
+                    halfCompleted = false;
+                    HubEvents.PlayerStepEvent();
                     currentCycleDistance -= TWOPI;
+                }
             }
             else
             {
@@ -95,14 +105,7 @@ public class HubPlayerCamera : MonoBehaviour
 
     public void SetLookInput(Vector2 input)
     {
-        if (!Inverted)
-        {
-            currentLook += input * DefaultSensitivity * currentSensitivity;
-        }
-        else
-        {
-            currentLook -= input * DefaultSensitivity * currentSensitivity;
-        }
+        currentLook += input * DefaultSensitivity * currentSensitivity;
 
         if (currentLook.y > MaxUpLookAngle)
         {

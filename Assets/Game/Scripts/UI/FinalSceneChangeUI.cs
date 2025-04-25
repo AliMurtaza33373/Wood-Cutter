@@ -26,6 +26,7 @@ public class FinalSceneChangeUI : MonoBehaviour
         if (!SaveData.FinalHubUnlocked)
         {
             SaveData.FinalHubUnlocked = true;
+            HubSoundManager.Instance.FirstTimeFinalHub();
             SaveData.Save();
 
             whiteBackgroundImage.gameObject.SetActive(true);

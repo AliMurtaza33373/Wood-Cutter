@@ -21,11 +21,27 @@ public class HubPlayerMovement : MonoBehaviour, ICharacterController
     private Vector3 movementInput;
     private Vector3 previousVelocity;
 
+    private bool stepOccured;
 
     private void Awake()
     {
         motor.CharacterController = this;
         playerCamera = GetComponent<HubPlayerCamera>();
+    }
+
+    private void OnEnable()
+    {
+        HubEvents.OnPlayerStep += StepOccured;
+    }
+
+    private void OnDisable()
+    {
+        HubEvents.OnPlayerStep -= StepOccured;
+    }
+
+    private void StepOccured()
+    {
+        stepOccured = true;
     }
 
     private void Start()
@@ -112,6 +128,22 @@ public class HubPlayerMovement : MonoBehaviour, ICharacterController
         previousVelocity = currentVelocity;
     }
 
+    public void OnGroundHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport)
+    {
+        if (!stepOccured)
+            return;
+
+        stepOccured = false;
+
+        if (hitCollider.CompareTag("Platform"))
+        {
+            HubSoundManager.Instance.WalkOnConcrete();
+        }
+        else
+        {
+            HubSoundManager.Instance.WalkOnDirt();
+        }
+    }
 
 
     // unused methods
@@ -121,7 +153,6 @@ public class HubPlayerMovement : MonoBehaviour, ICharacterController
     public void BeforeCharacterUpdate(float deltaTime) { }
     public bool IsColliderValidForCollisions(Collider coll) { return true; }
     public void OnDiscreteCollisionDetected(Collider hitCollider) { }
-    public void OnGroundHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }
     public void AfterCharacterUpdate(float deltaTime) { }
     public void PostGroundingUpdate(float deltaTime) { }
     public void OnMovementHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }

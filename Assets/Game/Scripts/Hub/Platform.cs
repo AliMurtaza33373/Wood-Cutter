@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -52,7 +53,15 @@ public class Platform : MonoBehaviour
         if (canPressButton)
         {
             HubEvents.PressedButtonEvent();
+            HubSoundManager.Instance.PlayPressButtonSound();
             animator.SetTrigger("PressButton");
+
+            DOVirtual.DelayedCall(4f, PlayTransformationSoundNow);
+
+            void PlayTransformationSoundNow()
+            {
+                HubSoundManager.Instance.PlayHubTransformationSound();
+            }
         }
     }
 

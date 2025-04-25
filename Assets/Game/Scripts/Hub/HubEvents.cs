@@ -13,4 +13,11 @@ public static class HubEvents
     {
         if (OnPressedButton != null) OnPressedButton();
     }
+
+    public delegate void PlayerStep();
+    public static event PlayerStep OnPlayerStep;
+    public static void PlayerStepEvent()
+    {
+        if (OnPlayerStep != null) OnPlayerStep();
+    }
 }
