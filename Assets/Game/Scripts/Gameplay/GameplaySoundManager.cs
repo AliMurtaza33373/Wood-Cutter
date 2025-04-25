@@ -9,20 +9,24 @@ public class GameplaySoundManager : MonoBehaviour
     private void Awake()
     {
         if (Instance != null)
+        {
             Destroy(gameObject);
+            return;
+        }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
     {
-        HubEvents.OnPlayerStep += RunOnConcrete;
+        GameplayEvents.OnPlayerStep += RunOnConcrete;
     }
 
     private void OnDisable()
     {
-        HubEvents.OnPlayerStep -= RunOnConcrete;
+        GameplayEvents.OnPlayerStep -= RunOnConcrete;
     }
 
     [SerializeField]
@@ -37,51 +41,72 @@ public class GameplaySoundManager : MonoBehaviour
 
     public void PlayWin()
     {
+        if (Instance == null)
+            return;
         audioSource.PlayOneShot(winClip);
     }
 
     public void PlayDie()
     {
+        if (Instance == null)
+            return;
         audioSource.PlayOneShot(dieClip);
     }
 
     public void PlayGetHit()
     {
+        if (Instance == null)
+            return;
+
         audioSource.PlayOneShot(getHitClip);
     }
 
     public void PlayDestroy()
     {
+        if (Instance == null)
+            return;
         audioSource.PlayOneShot(destroyClip);
     }
 
     public void PlayGainEnergy()
     {
+        if (Instance == null)
+            return;
         audioSource.PlayOneShot(gainEnergyClip);
     }
 
     public void PlaySlashTree()
     {
+        if (Instance == null)
+            return;
         audioSource.PlayOneShot(slashTreeClip);
     }
 
     public void PlayWosh()
     {
+        if (Instance == null)
+            return;
         audioSource.PlayOneShot(woshClip);
     }
 
     public void RunOnConcrete()
     {
+        if (Instance == null)
+            return;
         PlayRandomClip(runConcreteClips);
     }
 
     public void PlayJump()
     {
+        if (Instance == null)
+            return;
         PlayRandomClip(jumpClips);
     }
 
     public void PlayLand()
     {
+        if (Instance == null)
+            return;
         PlayRandomClip(landClips);
     }
 

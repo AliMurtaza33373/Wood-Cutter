@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     public void GoBackToHub()
     {
+        Destroy(GameplaySoundManager.Instance.gameObject);
+
         Time.timeScale = 1;
         DOTween.CompleteAll();
         if (!SaveData.FinalHubUnlocked)
