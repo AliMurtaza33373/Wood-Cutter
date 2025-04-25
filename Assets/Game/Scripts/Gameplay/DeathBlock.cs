@@ -6,6 +6,7 @@ public class DeathBlock : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            GameplaySoundManager.Instance.PlayDie();
             GameplayEvents.GameResetEvent();
         }
     }

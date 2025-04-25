@@ -23,6 +23,7 @@ public class MechanicalTree : MonoBehaviour
         if (cutDown)
             return;
 
+        GameplaySoundManager.Instance.PlaySlashTree();
         GetComponent<BoxCollider>().enabled = false;
         cutDown = true;
         GameplayEvents.CutTreeEvent(gameObject);

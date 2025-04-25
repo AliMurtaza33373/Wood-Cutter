@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
             CurrentEnergy -= damage;
         else
         {
+            GameplaySoundManager.Instance.PlayDie();
             GameplayEvents.PlayerDiedEvent();
         }
     }

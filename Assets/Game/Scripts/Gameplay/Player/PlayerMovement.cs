@@ -318,6 +318,7 @@ public class PlayerMovement : MonoBehaviour, ICharacterController
                     timeRemainSlideBonusTime = 0;
                 }
 
+                GameplaySoundManager.Instance.PlayJump();
                 AnticipatingJump = false;
                 motor.ForceUnground();
                 currentVelocity += (motor.CharacterUp * JumpUpSpeed) - Vector3.Project(currentVelocity, motor.CharacterUp);
@@ -405,6 +406,8 @@ public class PlayerMovement : MonoBehaviour, ICharacterController
     {
         if (motor.GroundingStatus.IsStableOnGround && !motor.LastGroundingStatus.IsStableOnGround)
         {
+            GameplaySoundManager.Instance.PlayLand();
+
             if (IsCrouching)
                 timeRemainSlideLandTime = AfterSlideLandLimitTime;
             jumpedDespiteSlideLimit = false;

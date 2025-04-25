@@ -75,6 +75,7 @@ public class GameplayGateway : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.PlayerFinished();
+            GameplaySoundManager.Instance.PlayWin();
 
             Cursor.lockState = CursorLockMode.None;
             finishCanvas.SetActive(true);

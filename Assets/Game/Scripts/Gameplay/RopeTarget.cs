@@ -44,6 +44,7 @@ public class RopeTarget : MonoBehaviour
         if (collected)
             return;
 
+        GameplaySoundManager.Instance.PlayDestroy();
         GameplayEvents.CutTreeEvent(gameObject);
 
         collected = true;

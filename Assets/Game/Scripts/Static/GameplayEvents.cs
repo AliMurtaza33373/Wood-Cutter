@@ -36,4 +36,18 @@ public static class GameplayEvents
     {
         if (OnPlayerPressLeftMouse != null) OnPlayerPressLeftMouse();
     }
+
+    public delegate void PressedButton();
+    public static event PressedButton OnPressedButton;
+    public static void PressedButtonEvent()
+    {
+        if (OnPressedButton != null) OnPressedButton();
+    }
+
+    public delegate void PlayerStep();
+    public static event PlayerStep OnPlayerStep;
+    public static void PlayerStepEvent()
+    {
+        if (OnPlayerStep != null) OnPlayerStep();
+    }
 }

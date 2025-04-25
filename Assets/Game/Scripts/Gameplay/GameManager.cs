@@ -74,6 +74,9 @@ public class GameManager : MonoBehaviour
         TreesRemaining--;
         TreesCut++;
 
+        GameplaySoundManager.Instance.PlayGainEnergy();
+
+
         Time.timeScale = SlowAmount;
         Time.fixedDeltaTime = defaultFixedDeltaTime * Time.timeScale;
         DOVirtual.DelayedCall(KillSlowTime, BackToNormalSpeed, false).SetUpdate(true);

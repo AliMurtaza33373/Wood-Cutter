@@ -46,7 +46,6 @@ public class HubSoundManager : MonoBehaviour
 
     private void PlayRandomClip(AudioClip[] walkClips)
     {
-        // Select a random clip from the array
         int randomIndex = UnityEngine.Random.Range(0, walkClips.Length);
         audioSource.PlayOneShot(walkClips[randomIndex]);
     }

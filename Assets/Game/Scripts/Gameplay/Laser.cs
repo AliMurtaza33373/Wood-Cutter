@@ -6,6 +6,7 @@ public class Laser : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameplaySoundManager.Instance.PlayGetHit();
             GameplayEvents.PlayerGotHitEvent(1, transform.position);
         }
     }

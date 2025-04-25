@@ -107,6 +107,7 @@ public class PlayerArms : MonoBehaviour
         IEnumerator Slash()
         {
             currentlyInSlashState = true;
+            GameplaySoundManager.Instance.PlayWosh();
 
             timeRemainSlashInterval = SlashAnticipationTime + SlashOccurTime;
 

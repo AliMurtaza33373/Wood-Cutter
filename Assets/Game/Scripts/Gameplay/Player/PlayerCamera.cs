@@ -35,6 +35,8 @@ public class PlayerCamera : MonoBehaviour
 
     private float currentSensitivity;
 
+    private bool halfCompleted;
+
     private void Awake()
     {
         playerArms = GetComponent<PlayerArms>();
@@ -96,8 +98,18 @@ public class PlayerCamera : MonoBehaviour
                 else
                     currentCycleDistance += headBobRunSpeed * Time.deltaTime / RunBobCycleDistance * TWOPI;
 
+                if (!halfCompleted && currentCycleDistance > TWOPI / 2)
+                {
+                    halfCompleted = true;
+                    GameplayEvents.PlayerStepEvent();
+                }
+
                 if (currentCycleDistance > TWOPI)
+                {
+                    halfCompleted = false;
+                    GameplayEvents.PlayerStepEvent();
                     currentCycleDistance -= TWOPI;
+                }
             }
             else
             {
